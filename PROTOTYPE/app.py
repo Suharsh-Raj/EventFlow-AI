@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import joblib
 import pandas as pd
@@ -47,16 +48,19 @@ def go_to_home():
     st.session_state.current_page = "home"
 
 # =========================
-# LOAD MODELS
+# LOAD MODELS (ABSOLUTE PATH FIX)
 # =========================
 
-model_closure = joblib.load('../MODELS/model_closure.pkl')
-model_priority = joblib.load('../MODELS/model_priority_v2.pkl')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODELS_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "MODELS"))
 
-le_dict = joblib.load('../MODELS/le_dict.pkl')
-le_dict_priority = joblib.load('../MODELS/le_dict_priority.pkl')
+model_closure = joblib.load(os.path.join(MODELS_DIR, 'model_closure.pkl'))
+model_priority = joblib.load(os.path.join(MODELS_DIR, 'model_priority_v2.pkl'))
 
-impact_scores = joblib.load('../MODELS/impact_scores.pkl')
+le_dict = joblib.load(os.path.join(MODELS_DIR, 'le_dict.pkl'))
+le_dict_priority = joblib.load(os.path.join(MODELS_DIR, 'le_dict_priority.pkl'))
+
+impact_scores = joblib.load(os.path.join(MODELS_DIR, 'impact_scores.pkl'))
 
 # =========================
 # PAGE 1: LANDING PAGE
